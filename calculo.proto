@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package calculo;
+
+message NumeroLista {
+  repeated int32 numeros = 1;
+}
+
+message NumeroMaximo {
+  int32 maximo = 1;
+}
+
+service ServidorCalculo {
+  rpc CalcularMaximo (NumeroLista) returns (NumeroMaximo) {}
+}
+
+service ServidorOperacion {
+  rpc ObtenerMaximo (NumeroLista) returns (NumeroMaximo) {}
+}
