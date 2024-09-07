@@ -13,7 +13,7 @@ def leer_archivo(nombre_archivo):
 
 def enviar_datos_al_servidor(lista_datos):
     try:
-        with grpc.insecure_channel('localhost:5000') as canal:
+        with grpc.insecure_channel('10.43.101.203:5000') as canal:
             cliente = calculo_pb2_grpc.ServidorCalculoStub(canal)
             respuesta = cliente.CalcularMaximo(calculo_pb2.NumeroLista(numeros=lista_datos))
             return respuesta.maximo

@@ -11,8 +11,8 @@ class ServidorCalculo(calculo_pb2_grpc.ServidorCalculoServicer):
         return calculo_pb2.NumeroMaximo(maximo=maximo)
         
     def calculo_falla(self, lista):
-        print("Servidor Calculo procede a realizar la operación por su cuenta")
-        print(f"El número mayor de la lista es {max(lista)}")
+        print("Servidor Calculo procede a realizar la operacion por su cuenta")
+        print(f"El numero mayor de la lista es {max(lista)}")
         return max(lista)
 
     def enviarServidor(self, ip, puerto, sublista):
@@ -21,22 +21,22 @@ class ServidorCalculo(calculo_pb2_grpc.ServidorCalculoServicer):
                 stub = calculo_pb2_grpc.ServidorOperacionStub(canal)
                 peticion = calculo_pb2.NumeroLista(numeros=sublista)
                 respuesta = stub.ObtenerMaximo(peticion)
-                print(f"El servidor de cálculo recibe del servidor de operaciones {ip}:{puerto} el número {respuesta.maximo}")
+                print(f"El servidor de calculo recibe del servidor de operaciones {ip}:{puerto} el numero {respuesta.maximo}")
                 return respuesta.maximo
         except Exception as e:
             print(f"Error al conectar con el servidor {ip}:{puerto} - {e}")
             return None
 
     def procesarLista(self, lista):
-        print(f"Servidor Calculo recibió del cliente: {lista}")
+        print(f"Servidor Calculo recibio del cliente: {lista}")
         
         mitad = len(lista) // 2
         subLista1 = lista[:mitad]
         subLista2 = lista[mitad:]
 
         servidores = [
-            {'ip': 'localhost', 'puerto': 5001, 'sublista': subLista1},
-            {'ip': 'localhost', 'puerto': 5002, 'sublista': subLista2}
+            {'ip': '10.43.101.133', 'puerto': 5001, 'sublista': subLista1},
+            {'ip': '10.43.100.182', 'puerto': 5002, 'sublista': subLista2}
         ]
 
         maximos = []
@@ -51,7 +51,7 @@ class ServidorCalculo(calculo_pb2_grpc.ServidorCalculoServicer):
                     return self.calculo_falla(lista)
             maximos.append(maximo)
 
-        print("El servidor de cálculo encontró el máximo: ", max(maximos))
+        print("El servidor de calculo encontró el maximo: ", max(maximos))
         return max(maximos)
 
 def iniciarServidor():
